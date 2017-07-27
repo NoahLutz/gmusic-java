@@ -35,7 +35,7 @@ public class GMusicClient {
 
     private Credentials credentials;
 
-    public GMusicClient(String clientID, String clientSecret, Call callProvider) {
+    protected GMusicClient(String clientID, String clientSecret, Call callProvider) {
         this.clientID = clientID;
         this.clientSecret = clientSecret;
         this.callProvider = callProvider;
@@ -138,14 +138,17 @@ public class GMusicClient {
     }
 
     public List<String> getAllSongs() {
+        verifyCredentials(credentials);
         return null;
     }
 
     public List<String> getAllPlaylists() {
+        verifyCredentials(credentials);
         return null;
     }
 
     public List<String> search(String keyword) {
+        verifyCredentials(credentials);
         return null;
     }
 
