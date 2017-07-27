@@ -1,7 +1,7 @@
 package com.charlesnlutz.gmusic.oauth2;
 
 import com.charlesnlutz.gmusic.GMusicClient;
-import com.charlesnlutz.gmusic.utils.HttpUtils;
+import com.charlesnlutz.gmusic.http.Call;
 import com.charlesnlutz.gmusic.utils.Utils;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -129,7 +129,7 @@ public class Credentials {
      * Updates the access token of this object
      * Note: this only updates the current Credentials object. To save to file, call {@link #save(String)}
     */
-    public boolean refreshToken(String clientID, String clientSecret){
+    public boolean refreshToken(String clientID, String clientSecret, Call callProvider){
         Map<String, String> params = new HashMap<>();
         params.put("grant_type", "refresh_token");
         params.put("client_id", clientID);
@@ -139,7 +139,7 @@ public class Credentials {
         //Send refresh request to google
         HttpResponse response = null;
         try {
-            response = HttpUtils.post(GMusicClient.GOOGLE_TOKEN_URL, params);
+            response = callProvider.post(GMusicClient.GOOGLE_TOKEN_URL, params);
         } catch (IOException e) {
             log.error("Failed to send request for refresh token", e);
             return false;
@@ -173,6 +173,7 @@ public class Credentials {
         //Update this object content
         content.put("access_token", newCreds.get("access_token").asText());
         content.put("expires_in", newCreds.get("expires_in").asText());
+        content.put("date_generated", Instant.now().getEpochSecond());
 
         return true;
     }
