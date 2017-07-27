@@ -27,7 +27,7 @@ public class Utils {
             logger = Logger.getRootLogger();
             ConsoleAppender appender = new ConsoleAppender();
 
-            appender.setLayout(new PatternLayout("%d{HH:mm:ss.SSS} [%t] %-5p - %m %n"));
+            appender.setLayout(new PatternLayout("[%-5p] %d{HH:mm:ss.SSS} [%t] - %m %n"));
             appender.setThreshold(Level.ALL);
             appender.activateOptions();
             logger.addAppender(appender);
