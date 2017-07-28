@@ -3,3 +3,5 @@ dist: trusty
 jdk:
     - oraclejdk8
     - openjdk8
+notifications:
+    slack: koallate:p4BeQIRkwf7rj8WblgiDe4R2
